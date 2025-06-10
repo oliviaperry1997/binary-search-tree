@@ -121,6 +121,21 @@ export class Tree {
             }
         }
     }
+
+    find(value) {
+        let current = this.root;
+
+        while (value != current.value) {
+            if (value < current.value) {
+                current = current.left;
+            }
+            if (value > current.value) {
+                current = current.right;
+            }
+        }
+
+        return current;
+    }
 }
 
 export const prettyPrint = (node, prefix = "", isLeft = true) => {

@@ -20,4 +20,5 @@ tree.delete(-13);
 tree.delete(1);
 tree.delete(7);
 
+console.log(tree.find(0.826))
 prettyPrint(tree.root);
