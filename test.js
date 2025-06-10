@@ -22,3 +22,7 @@ tree.delete(7);
 
 console.log(tree.find(0.826))
 prettyPrint(tree.root);
+
+tree.levelOrder(node => {
+    console.log(node.value)
+})
