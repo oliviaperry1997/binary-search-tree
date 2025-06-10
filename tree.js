@@ -125,12 +125,20 @@ export class Tree {
     find(value) {
         let current = this.root;
 
-        while (value != current.value) {
+        while (value !== current.value) {
             if (value < current.value) {
-                current = current.left;
+                if (current.left === null) {
+                    return null;
+                } else {
+                    current = current.left;
+                }
             }
             if (value > current.value) {
-                current = current.right;
+                if (current.right === null) {
+                    return null;
+                } else {
+                    current = current.right;
+                }
             }
         }
 
@@ -155,7 +163,7 @@ export class Tree {
 
     preOrder(callback, node = this.root) {
         if (!callback) throw new Error("Callback required");
-        
+
         if (!node) return;
 
         callback(node);
@@ -165,7 +173,7 @@ export class Tree {
 
     inOrder(callback, node = this.root) {
         if (!callback) throw new Error("Callback required");
-        
+
         if (!node) return;
 
         this.inOrder(callback, node.left);
@@ -175,12 +183,52 @@ export class Tree {
 
     postOrder(callback, node = this.root) {
         if (!callback) throw new Error("Callback required");
-        
+
         if (!node) return;
 
         this.postOrder(callback, node.left);
         this.postOrder(callback, node.right);
         callback(node);
+    }
+
+    height(value) {
+        const node = this.find(value);
+        if (!node) return null;
+
+        function heightHelper(node) {
+            if (!node) return null;
+            return (
+                1 + Math.max(heightHelper(node.left), heightHelper(node.right))
+            );
+        }
+
+        return heightHelper(node);
+    }
+
+    depth(value) {
+        let current = this.root;
+        let level = 0;
+
+        while (value !== current.value) {
+            if (value < current.value) {
+                if (current.left === null) {
+                    return null;
+                } else {
+                    current = current.left;
+                    level++;
+                }
+            }
+            if (value > current.value) {
+                if (current.right === null) {
+                    return null;
+                } else {
+                    current = current.right;
+                    level++;
+                }
+            }
+        }
+
+        return level;
     }
 }
 
