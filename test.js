@@ -2,6 +2,22 @@ import { prettyPrint, Tree } from "./tree.js";
 
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
-prettyPrint(tree.root);
+tree.insert(2);
+tree.insert(0);
+tree.insert(-1);
+tree.insert(-13);
+tree.insert(-7);
+tree.insert(-2);
+tree.insert(-9);
+tree.insert(-0.5);
+tree.insert(0.5);
+tree.insert(0.413);
+tree.insert(0.826);
+tree.insert(0.612);
 
-console.log(tree.root);
+tree.delete(324);
+tree.delete(-13);
+tree.delete(1);
+tree.delete(7);
+
+prettyPrint(tree.root);
