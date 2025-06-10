@@ -230,6 +230,18 @@ export class Tree {
 
         return level;
     }
+
+    isBalanced(node = this.root) {
+        if (node === null) return true;
+
+        const leftHeight = node.left ? this.height(node.left.value) : -1;
+        const rightHeight = node.right ? this.height(node.right.value) : -1;
+        const diff = Math.abs(leftHeight - rightHeight);
+
+        if (diff > 1) return false;
+
+        return this.isBalanced(node.left) && this.isBalanced(node.right);
+    }
 }
 
 export const prettyPrint = (node, prefix = "", isLeft = true) => {
