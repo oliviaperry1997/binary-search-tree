@@ -20,9 +20,27 @@ tree.delete(-13);
 tree.delete(1);
 tree.delete(7);
 
-console.log(tree.find(0.826))
+console.log(tree.find(0.826));
 prettyPrint(tree.root);
 
-tree.levelOrder(node => {
-    console.log(node.value)
-})
+tree.levelOrder((node) => {
+    console.log(node.value);
+});
+
+console.log("");
+
+tree.preOrder((node) => {
+    console.log(node.value);
+});
+
+console.log("");
+
+tree.inOrder((node) => {
+    console.log(node.value);
+});
+
+console.log("");
+
+tree.postOrder((node) => {
+    console.log(node.value);
+});

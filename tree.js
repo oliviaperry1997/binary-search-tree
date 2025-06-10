@@ -138,7 +138,7 @@ export class Tree {
     }
 
     levelOrder(callback) {
-        if (!callback) throw new Error("Callback required.")
+        if (!callback) throw new Error("Callback required.");
 
         if (!this.root) return;
 
@@ -151,6 +151,36 @@ export class Tree {
             if (current.left) queue.push(current.left);
             if (current.right) queue.push(current.right);
         }
+    }
+
+    preOrder(callback, node = this.root) {
+        if (!callback) throw new Error("Callback required");
+        
+        if (!node) return;
+
+        callback(node);
+        this.preOrder(callback, node.left);
+        this.preOrder(callback, node.right);
+    }
+
+    inOrder(callback, node = this.root) {
+        if (!callback) throw new Error("Callback required");
+        
+        if (!node) return;
+
+        this.inOrder(callback, node.left);
+        callback(node);
+        this.inOrder(callback, node.right);
+    }
+
+    postOrder(callback, node = this.root) {
+        if (!callback) throw new Error("Callback required");
+        
+        if (!node) return;
+
+        this.postOrder(callback, node.left);
+        this.postOrder(callback, node.right);
+        callback(node);
     }
 }
 
