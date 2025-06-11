@@ -41,6 +41,8 @@ export class Tree {
                 }
             }
         }
+
+        this.rebalance();
     }
 
     insert(value) {
