@@ -191,18 +191,13 @@ export class Tree {
         callback(node);
     }
 
-    height(value) {
-        const node = this.find(value);
-        if (!node) return null;
+    height(node = this.root) {
+        if (node === null) return -1;
 
-        function heightHelper(node) {
-            if (!node) return null;
-            return (
-                1 + Math.max(heightHelper(node.left), heightHelper(node.right))
-            );
-        }
+        const leftHeight = this.height(node.left);
+        const rightHeight = this.height(node.right);
 
-        return heightHelper(node);
+        return 1 + Math.max(leftHeight, rightHeight);
     }
 
     depth(value) {
@@ -234,13 +229,35 @@ export class Tree {
     isBalanced(node = this.root) {
         if (node === null) return true;
 
-        const leftHeight = node.left ? this.height(node.left.value) : -1;
-        const rightHeight = node.right ? this.height(node.right.value) : -1;
+        const leftHeight = this.height(node.left);
+        const rightHeight = this.height(node.right);
         const diff = Math.abs(leftHeight - rightHeight);
 
         if (diff > 1) return false;
 
         return this.isBalanced(node.left) && this.isBalanced(node.right);
+    }
+
+    rebalance() {
+        let values = [];
+
+        this.inOrder((node) => {
+            values.push(node.value);
+        });
+
+        const buildRecursive = (arr, start = 0, end = arr.length - 1) => {
+            if (start > end) return null;
+
+            const mid = Math.floor((start + end) / 2);
+            const node = new Node(arr[mid]);
+
+            node.left = buildRecursive(arr, start, mid - 1);
+            node.right = buildRecursive(arr, mid + 1, end);
+
+            return node;
+        };
+
+        this.root = buildRecursive(values);
     }
 }
 
